@@ -16,3 +16,5 @@ This is my final assignement for Programming Languages 1 course at TAMK.
 |8|4|
 |9|2|
 |10|1|
+
+Additionally, if a driver classified 10th or above sets the fastest lap during the race, an additional point is awarded to the driver.
