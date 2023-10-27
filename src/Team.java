@@ -15,4 +15,8 @@ public class Team {
     public void setDriver2(Driver driver2) {
         this.driver2 = driver2;
     }
+
+    public void addPoints(int points) {
+        totalPoints+=points;
+    }
 }
