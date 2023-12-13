@@ -1,22 +1,17 @@
-public class Team {
-    String name;
-    int totalPoints;
-    Driver driver1, driver2;
+import java.io.*;
 
-    Team (String name, int totalPoints, Driver driver1, Driver driver2) {
+public class Team implements Serializable {
+    public String name;
+    public String abv;
+    public int totalPoints;
+
+    Team (String name, String abv, int totalPoints) {
         this.name = name;
-        this.totalPoints = totalPoints;
-    }
-
-    public void setDriver1(Driver driver1) {
-        this.driver1 = driver1;
-    }
-
-    public void setDriver2(Driver driver2) {
-        this.driver2 = driver2;
+        this.abv = abv;
+        this.totalPoints = 0;
     }
 
     public void addPoints(int points) {
-        totalPoints+=points;
+        this.totalPoints+=points;
     }
 }
