@@ -69,7 +69,7 @@ public class Utilities implements Serializable {
         }
 
         String[] driverNames = {"Lando Norris", "Oscar Piastri", "Charles Leclerc", "Carlos Sainz", "Max Verstappen", "Sergio Perez", "Lewis Hamilton", "George Russell", "Pierre Gasly", "Esteban Ocon", "Yuki Tsunoda", "Daniel Ricciardo", "Fernando Alonso", "Lance Stroll", "Valtteri Bottas", "Guanyu Zhou", "Logan Sargeant", "Alex Albon", "Kevin Magnussen", "Nico Hülkenberg"};
-        String[] driverAbvs = {"NOR", "PIA", "LEC", "SAI", "VER", "PER", "HAM", "RUS", "GAS", "OCO", "TSU", "RIC", "FER", "STR", "BOT", "ZHO", "SAR", "ALB", "MAG", "HUL"};
+        String[] driverAbvs = {"NOR", "PIA", "LEC", "SAI", "VER", "PER", "HAM", "RUS", "GAS", "OCO", "TSU", "RIC", "ALO", "STR", "BOT", "ZHO", "SAR", "ALB", "MAG", "HUL"};
 
         int index = 0;
         for (int i = 0; i < 10; i++) {
@@ -83,6 +83,98 @@ public class Utilities implements Serializable {
         toFiles("teams.ser", teams);
         toFiles("drivers.ser", drivers);
 
+    }
+
+    public Driver doesDriverExist(ArrayList<Driver> drivers, String input) {
+        for (Driver driver : drivers) {
+            if (driver.abv.equalsIgnoreCase(input) || driver.name.equalsIgnoreCase(input)) {
+                return driver;
+            }
+        }
+        return null;
+    }
+
+    public Team doesTeamExist(ArrayList<Team> teams, String input) {
+        for (Team team : teams) {
+            if (team.abv.equalsIgnoreCase(input) || team.name.equalsIgnoreCase(input)) {
+                return team;
+            }
+        }
+        return null;
+    }
+
+    public void Sync(ArrayList<Driver> drivers, ArrayList<Team> teams) {
+        for (Driver driver : drivers) {
+            for (Team team : teams) {
+                if (driver.team.abv.equals(team.abv)) { 
+                    driver.team = team;
+                    break;
+                }
+            }
+        }
+    }
+
+    public Driver addDriver(ArrayList<Driver> drivers, ArrayList<Team> teams) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter name of driver: ");
+        String name = scanner.nextLine();
+
+        System.out.println("Enter abbreviation of driver: ");
+        String abv = scanner.nextLine();
+
+        System.out.println("Enter name/abbreviation of team: ");
+        String team = scanner.nextLine();
+
+        Team foundTeam = null;
+
+        boolean displayNotExistMessage = true;
+
+        while (foundTeam == null) {
+            foundTeam = doesTeamExist(teams, team);
+
+            if (foundTeam == null) {
+
+                if (displayNotExistMessage) {
+                    System.out.println("Team does not exist!");
+                }
+
+                System.out.println("1: Add new team\n2: Try again");
+
+                switch (scanner.nextInt()) {
+                    case 1:
+                        foundTeam = addTeam(teams);
+                        break;
+                    case 2:
+                        System.out.println("Enter name/abbreviation of team: ");
+                        team = scanner.nextLine();
+                        break;
+                    default:
+                        System.out.println("Invalid choice!");
+                        displayNotExistMessage = false;
+                        break;
+                }
+            }
+        }
+
+        Driver driver = new Driver(name, abv, 0, foundTeam);
+        drivers.add(driver);
+        return driver;
+    }
+
+    public Team addTeam(ArrayList<Team> teams) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter name of team: ");
+        String name = scanner.nextLine();
+
+        System.out.println("Enter abbreviation of team: ");
+        String abv = scanner.nextLine();
+
+        Team team = new Team(name, abv, 0);
+        teams.add(team);
+
+        return team;
     }
 
     public void toFiles(String fileName, Object object) throws IOException {

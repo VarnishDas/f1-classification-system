@@ -10,34 +10,88 @@ public class RaceManager {
         ArrayList<Team> teams = utilities.fromFiles("teams.ser");
         ArrayList<Driver> drivers = utilities.fromFiles("drivers.ser");
 
-        for (Driver driver : drivers) {
-            for (Team team : teams) {
-                if (driver.team.abv.equals(team.abv)) { 
-                    driver.team = team;
-                    break;
-                }
-            }
-        }        
+        utilities.Sync(drivers, teams);      
 
         int points[] = {25, 18, 15, 12, 10, 8, 6, 4, 2, 1};
 
         System.out.println("Enter abbreviation/name of driver who got the fastest lap: ");
         String fastestLap = scanner.nextLine();
 
+        Driver fastestDriver = null;
+
+        boolean displayNotExistMessage = true; 
+
+        while (fastestDriver == null) {
+            fastestDriver = utilities.doesDriverExist(drivers, fastestLap);
+
+            if (fastestDriver == null) {
+
+                if (displayNotExistMessage) {
+                    System.out.println("Driver does not exist!");
+                }
+
+                System.out.println("1: Add new driver\n2: Try again");
+
+                switch (scanner.nextInt()) {
+                    case 1:
+                        fastestDriver = utilities.addDriver(drivers, teams);
+                        break;
+                    case 2:
+                        System.out.println("Enter abbreviation/name of driver who got the fastest lap: ");
+                        scanner.nextLine();
+                        fastestLap = scanner.nextLine();
+                        break;
+                    default:
+                        System.out.println("Invalid choice!");
+                        displayNotExistMessage = false;
+                        break;
+                }
+                fastestLap = scanner.nextLine();
+            }
+        }
+
+        boolean displayNotExistMessage2 = true;
+
         for (int i = 0; i < 10; i++) {
             System.out.println("Enter abbreviation/name of driver who came " + (i+1) + ": ");
             String driver = scanner.nextLine();
 
-            for (int j = 0; j < drivers.size(); j++) {
-                if (drivers.get(j).abv.equalsIgnoreCase(driver) || drivers.get(j).name.equalsIgnoreCase(driver)) {
-                    drivers.get(j).addPoints(points[i]);
-                    drivers.get(j).team.addPoints(points[i]);
+            Driver foundDriver = null;
 
-                    if (fastestLap.equalsIgnoreCase(driver) || fastestLap.equalsIgnoreCase(driver)) {
-                        drivers.get(j).addPoints(1);
-                        drivers.get(j).team.addPoints(1);
+            while (foundDriver == null) {
+                foundDriver = utilities.doesDriverExist(drivers, driver);
+
+                if (foundDriver == null) {
+
+                    if (displayNotExistMessage2) {
+                        System.out.println("Driver does not exist!");
+                    }
+
+                    System.out.println("1: Add new driver\n2: Try again");
+
+                    switch (scanner.nextInt()) {
+                        case 1:
+                            foundDriver = utilities.addDriver(drivers, teams);
+                            break;
+                        case 2:
+                            System.out.println("Enter abbreviation/name of driver who came " + (i+1) + ": ");
+                            scanner.nextLine();
+                            driver = scanner.nextLine();
+                            break;
+                        default:
+                            System.out.println("Invalid choice!");
+                            displayNotExistMessage2 = false;
+                            break;
                     }
                 }
+            }
+
+            foundDriver.addPoints(points[i]);
+            foundDriver.team.addPoints(points[i]);
+
+            if (fastestLap.equalsIgnoreCase(driver) || fastestLap.equalsIgnoreCase(driver)) {
+                foundDriver.addPoints(1);
+                foundDriver.team.addPoints(1);
             }
         }
 
