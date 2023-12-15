@@ -46,18 +46,4 @@ public class RaceManager {
 
 
     }
-
-    public void getPoints() throws IOException, ClassNotFoundException {
-        Utilities utilities = new Utilities();
-        ArrayList<Team> teams = utilities.fromFiles("teams.ser");
-        ArrayList<Driver> drivers = utilities.fromFiles("drivers.ser");
-
-        for (int i = 0; i < drivers.size(); i++) {
-            System.out.println(drivers.get(i).name + " " + drivers.get(i).totalPoints);
-        }
-
-        for (int i = 0; i < teams.size(); i++) {
-            System.out.println(teams.get(i).name + " " + teams.get(i).totalPoints);
-        }
-    }
 }
