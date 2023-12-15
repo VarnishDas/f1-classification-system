@@ -12,7 +12,7 @@ public class Utilities implements Serializable {
         boolean done = false;
 
         while (!done) {
-            System.out.println("1: Create custom setup\n2: Create automic setup (2024 Grid)");
+            System.out.println("1: Create custom setup\n2: Create automic setup (2023 Grid)");
 
             switch (scanner.nextLine()) {
                 case "1":
