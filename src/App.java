@@ -21,20 +21,19 @@ public class App {
 
         while (!exit) {
             System.out.println("MENU\n1: New Race\n2: View Driver's Standings\n3: View Team's Standings\n4: Exit");            
-            int choice = scanner.nextInt();
-            scanner.nextLine(); 
+            String choice = scanner.nextLine();
 
             switch (choice) {
-                case 1:
+                case "1":
                     raceManager.newRace();
                     break;
-                case 2:
+                case "2":
                     standings.viewDriverStandings();
                     break;
-                case 3:
+                case "3":
                     standings.viewTeamStandings();
                     break;
-                case 4:
+                case "4":
                     exit = true;
                     break;
                 default:
