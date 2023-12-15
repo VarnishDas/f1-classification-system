@@ -3,8 +3,12 @@ import java.util.*;
 
 public class Utilities implements Serializable {
 
+    // Create arraylists for teams and drivers
+
     private ArrayList<Team> teams = new ArrayList<Team>();
     private ArrayList<Driver> drivers = new ArrayList<Driver>();
+
+    // Setup method
 
     public void setup() throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -31,6 +35,9 @@ public class Utilities implements Serializable {
     }
 
     public void customSetup() throws IOException {
+
+        // Create teams and drivers
+
         Scanner scanner = new Scanner(System.in);
 
         for (int i = 0; i < 10; i++) {
@@ -53,6 +60,8 @@ public class Utilities implements Serializable {
             }
         }
 
+        // Write teams and drivers to files
+
         toFiles("teams.ser", teams);
         toFiles("drivers.ser", drivers);
 
@@ -60,6 +69,9 @@ public class Utilities implements Serializable {
     }
 
     public void automaticSetup() throws IOException {
+
+        // Create teams and drivers
+
         String[] teamNames = {"McLaren", "Ferrari", "Red Bull", "Mercedes", "Alpine", "AlphaTauri", "Aston Martin", "Alfa Romeo", "Williams", "Haas"};
         String[] teamAbvs = {"MCL", "FER", "RBR", "MER", "ALP", "ATR", "AMR", "ARO", "WIL", "HAS"};
 
@@ -80,12 +92,17 @@ public class Utilities implements Serializable {
             }
         }
 
+        // Write teams and drivers to files
+
         toFiles("teams.ser", teams);
         toFiles("drivers.ser", drivers);
 
     }
 
     public Driver doesDriverExist(ArrayList<Driver> drivers, String input) {
+
+        // Check if driver exists and retuen driver if it does or return null if it doesn't
+
         for (Driver driver : drivers) {
             if (driver.abv.equalsIgnoreCase(input) || driver.name.equalsIgnoreCase(input)) {
                 return driver;
@@ -95,6 +112,9 @@ public class Utilities implements Serializable {
     }
 
     public Team doesTeamExist(ArrayList<Team> teams, String input) {
+
+        // Check if team exists and return team if it does or return null if it doesn't
+
         for (Team team : teams) {
             if (team.abv.equalsIgnoreCase(input) || team.name.equalsIgnoreCase(input)) {
                 return team;
@@ -104,6 +124,9 @@ public class Utilities implements Serializable {
     }
 
     public void Sync(ArrayList<Driver> drivers, ArrayList<Team> teams) {
+
+        // Sync drivers and teams after reading from files
+
         for (Driver driver : drivers) {
             for (Team team : teams) {
                 if (driver.team.abv.equals(team.abv)) { 
@@ -115,6 +138,9 @@ public class Utilities implements Serializable {
     }
 
     public Driver addDriver(ArrayList<Driver> drivers, ArrayList<Team> teams) {
+
+        // Add new driver
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter name of driver: ");
@@ -129,6 +155,8 @@ public class Utilities implements Serializable {
         Team foundTeam = null;
 
         boolean displayNotExistMessage = true;
+
+        // Check if team exists and either add new team or try again
 
         while (foundTeam == null) {
             foundTeam = doesTeamExist(teams, team);
@@ -157,12 +185,17 @@ public class Utilities implements Serializable {
             }
         }
 
+        // Create new driver and add it to drivers arraylist
+
         Driver driver = new Driver(name, abv, 0, foundTeam);
         drivers.add(driver);
         return driver;
     }
 
     public Team addTeam(ArrayList<Team> teams) {
+
+        // Add new team
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter name of team: ");
@@ -171,6 +204,8 @@ public class Utilities implements Serializable {
         System.out.println("Enter abbreviation of team: ");
         String abv = scanner.nextLine();
 
+        // Create new team and add it to teams arraylist
+
         Team team = new Team(name, abv, 0);
         teams.add(team);
 
@@ -178,6 +213,9 @@ public class Utilities implements Serializable {
     }
 
     public void toFiles(String fileName, Object object) throws IOException {
+
+        // Write object to file
+
         FileOutputStream fileOut = new FileOutputStream(fileName);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(object);
@@ -186,6 +224,9 @@ public class Utilities implements Serializable {
     }
 
     public <T> ArrayList<T> fromFiles(String fileName) throws IOException, ClassNotFoundException {
+
+        // Read object from file and return it
+    
         FileInputStream fileIn = new FileInputStream(fileName);
         ObjectInputStream in = new ObjectInputStream(fileIn);
         @SuppressWarnings("unchecked")

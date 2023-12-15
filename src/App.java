@@ -36,6 +36,8 @@ public class App {
             ""
         };
 
+        // Adding colors to welcome message
+
         for (int i = 0; i < welcome.length; i++) {
             if (i < 4) {
                 welcome[i] = red + welcome[i] + reset;
@@ -53,7 +55,8 @@ public class App {
         }
 
 
-
+        // Check if setup exists and run setup if it doesn't
+        
         File file = new File("teams.ser");
         File file2 = new File("drivers.ser");
 
@@ -63,6 +66,8 @@ public class App {
         }
 
         boolean exit = false; 
+
+        // Main menu
 
         while (!exit) {
             System.out.println("MENU\n1: New Race\n2: View Driver's Standings\n3: View Team's Standings\n4: Exit");            

@@ -7,6 +7,8 @@ public class Standings {
 
         ArrayList<Driver> drivers = utilities.fromFiles("drivers.ser");
 
+        // Sort drivers by total points
+
         for (int i = 0; i < drivers.size()-1; i++) {
             for (int j = 0; j < drivers.size()-i-1; j++) {
                 if (drivers.get(j).totalPoints < drivers.get(j+1).totalPoints) {
@@ -32,6 +34,8 @@ public class Standings {
         Utilities utilities = new Utilities();
 
         ArrayList<Team> teams = utilities.fromFiles("teams.ser");
+
+        // Sort teams by total points
 
         for (int i = 0; i < teams.size()-1; i++) {
             for (int j = 0; j < teams.size()-i-1; j++) {

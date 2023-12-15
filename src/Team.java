@@ -1,5 +1,7 @@
 import java.io.*;
 
+// Team class
+
 public class Team implements Serializable {
     public String name;
     public String abv;

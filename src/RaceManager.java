@@ -14,12 +14,16 @@ public class RaceManager {
 
         int points[] = {25, 18, 15, 12, 10, 8, 6, 4, 2, 1};
 
+        // Get driver with fastest laps
+
         System.out.println("Enter abbreviation/name of driver who got the fastest lap: ");
         String fastestLap = scanner.nextLine();
 
         Driver fastestDriver = null;
 
         boolean displayNotExistMessage = true; 
+
+        // Check if driver exists and either add new driver or try again
 
         while (fastestDriver == null) {
             fastestDriver = utilities.doesDriverExist(drivers, fastestLap);
@@ -53,6 +57,8 @@ public class RaceManager {
         boolean displayNotExistMessage2 = true;
 
         HashSet<String> selectedDrivers = new HashSet<>();
+
+        // Get drivers who came 1st to 10th and add points to them
 
         for (int i = 0; i < 10; i++) {
             System.out.println("Enter abbreviation/name of driver who came " + (i+1) + ": ");
