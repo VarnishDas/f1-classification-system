@@ -32,11 +32,11 @@ public class RaceManager {
 
                 System.out.println("1: Add new driver\n2: Try again");
 
-                switch (scanner.nextInt()) {
-                    case 1:
+                switch (scanner.nextLine()) {
+                    case "1":
                         fastestDriver = utilities.addDriver(drivers, teams);
                         break;
-                    case 2:
+                    case "2":
                         System.out.println("Enter abbreviation/name of driver who got the fastest lap: ");
                         scanner.nextLine();
                         fastestLap = scanner.nextLine();
@@ -52,6 +52,8 @@ public class RaceManager {
 
         boolean displayNotExistMessage2 = true;
 
+        HashSet<String> selectedDrivers = new HashSet<>();
+
         for (int i = 0; i < 10; i++) {
             System.out.println("Enter abbreviation/name of driver who came " + (i+1) + ": ");
             String driver = scanner.nextLine();
@@ -61,19 +63,29 @@ public class RaceManager {
             while (foundDriver == null) {
                 foundDriver = utilities.doesDriverExist(drivers, driver);
 
+                if (foundDriver != null) {
+                    if (selectedDrivers.contains(foundDriver.abv)) {
+                        System.out.println("Driver already selected! Enter a different driver: ");
+                        foundDriver = null;
+                        displayNotExistMessage2 = false;
+                    }       
+                }
+
                 if (foundDriver == null) {
 
                     if (displayNotExistMessage2) {
                         System.out.println("Driver does not exist!");
                     }
 
+                    displayNotExistMessage2 = true;
+
                     System.out.println("1: Add new driver\n2: Try again");
 
-                    switch (scanner.nextInt()) {
-                        case 1:
+                    switch (scanner.nextLine()) {
+                        case "1":
                             foundDriver = utilities.addDriver(drivers, teams);
                             break;
-                        case 2:
+                        case "2":
                             System.out.println("Enter abbreviation/name of driver who came " + (i+1) + ": ");
                             scanner.nextLine();
                             driver = scanner.nextLine();
@@ -85,6 +97,8 @@ public class RaceManager {
                     }
                 }
             }
+
+            selectedDrivers.add(foundDriver.abv);
 
             foundDriver.addPoints(points[i]);
             foundDriver.team.addPoints(points[i]);

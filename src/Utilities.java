@@ -14,12 +14,12 @@ public class Utilities implements Serializable {
         while (!done) {
             System.out.println("1: Create custom setup\n2: Create automic setup (2024 Grid)");
 
-            switch (scanner.nextInt()) {
-                case 1:
+            switch (scanner.nextLine()) {
+                case "1":
                     customSetup();
                     done = true;
                     break;
-                case 2:
+                case "2":
                     automaticSetup();
                     done = true;
                     break;
