@@ -1,7 +1,7 @@
 # F1 Classification System
 
 This is my final assignement for Programming Languages 1 course at TAMK. 
-This Java-based project is a race management system for Formula 1 races. It includes functionalities to manage races, track driver standings and constructor standings.
+This Java-based project is a race management system for Formula 1. It includes functionalities to manage races, track driver standings and constructor standings.
 
 ## Quick guide to F1 points system
 |**Positon**|**Points**|
