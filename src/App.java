@@ -9,6 +9,51 @@ public class App {
         Standings standings = new Standings();
         RaceManager raceManager = new RaceManager();
 
+        String reset = "\u001B[0m";
+        String red = "\u001B[31m";
+        String green = "\u001B[32m";
+        String yellow = "\u001B[33m";
+        String cyan = "\u001B[36m";
+
+        String[] welcome = {
+            " _    _      _                            _",
+            "| |  | |    | |                          | |",
+            "| |  | | ___| | ___ ___  _ __ ___   ___  | |_ ___",
+            "| |/\\| |/ _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\ | __/ _ \\",
+            "\\  /\\  /  __/ | (_| (_) | | | | | |  __/ | || (_) |",
+            " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|  \\__\\___/",
+            "",
+            "",
+            "______ __    _____ _               _  __ _           _   _               _____           _",
+            "|  ___/  |  /  __ \\ |             (_)/ _(_)         | | (_)             /  ___|         | |",
+            "| |_  `| |  | /  \\/ | __ _ ___ ___ _| |_ _  ___ __ _| |_ _  ___  _ __   \\ `--. _   _ ___| |_ ___ _ __ ___",
+            "|  _|  | |  | |   | |/ _` / __/ __| |  _| |/ __/ _` | __| |/ _ \\| '_ \\   `--. \\ | | / __| __/ _ \\ '_ ` _ \\",
+            "| |   _| |_ | \\__/\\ | (_| \\__ \\__ \\ | | | | (_| (_| | |_| | (_) | | | | /\\__/ / |_| \\__ \\ ||  __/ | | | | |",
+            "\\_|   \\___/  \\____/_|\\__,_|___/___/_|_| |_|\\___\\__,_|\\__|_|\\___/|_| |_| \\____/ \\__, |___/\\__\\___|_| |_| |_|",
+            "                                                                                __/ |",
+            "                                                                               |___/",
+            "",
+            ""
+        };
+
+        for (int i = 0; i < welcome.length; i++) {
+            if (i < 4) {
+                welcome[i] = red + welcome[i] + reset;
+            } else if (i < 7) {
+                welcome[i] = cyan + welcome[i] + reset;
+            } else if (i < 12) {
+                welcome[i] = green + welcome[i] + reset;
+            } else if (i < 17) {
+                welcome[i] = yellow + welcome[i] + reset;
+            }
+        }
+
+        for (String line : welcome) {
+            System.out.println(line);
+        }
+
+
+
         File file = new File("teams.ser");
         File file2 = new File("drivers.ser");
 
